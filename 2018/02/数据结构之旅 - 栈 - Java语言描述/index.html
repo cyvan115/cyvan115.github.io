@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/favicon.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="数据结构,Java,栈," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="栈的定义栈（stack）是一个特殊的表，它限制了插入和删除只能在一个位置上进行，该位置是表的末端，叫作栈的顶（top）。根据操作的特性，栈也可被称为后进先出（Last In First Out，LIFO）表。对栈的基本操作有push(进栈)、pop(出栈)，前者相当于插入，后者则是删除 最后 插入的元素。在一个栈中，唯一可见的元素就是栈顶的元素。">
+<meta name="keywords" content="数据结构,Java,栈">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构之旅(2) - 栈 - Java语言描述">
+<meta property="og:url" content="http://yoursite.com/2018/02/数据结构之旅 - 栈 - Java语言描述/index.html">
+<meta property="og:site_name" content="BUGING">
+<meta property="og:description" content="栈的定义栈（stack）是一个特殊的表，它限制了插入和删除只能在一个位置上进行，该位置是表的末端，叫作栈的顶（top）。根据操作的特性，栈也可被称为后进先出（Last In First Out，LIFO）表。对栈的基本操作有push(进栈)、pop(出栈)，前者相当于插入，后者则是删除 最后 插入的元素。在一个栈中，唯一可见的元素就是栈顶的元素。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/005tAODYgy1foogdxkm8yj30wo0ldjsi.jpg">
+<meta property="og:updated_time" content="2018-05-14T07:48:16.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构之旅(2) - 栈 - Java语言描述">
+<meta name="twitter:description" content="栈的定义栈（stack）是一个特殊的表，它限制了插入和删除只能在一个位置上进行，该位置是表的末端，叫作栈的顶（top）。根据操作的特性，栈也可被称为后进先出（Last In First Out，LIFO）表。对栈的基本操作有push(进栈)、pop(出栈)，前者相当于插入，后者则是删除 最后 插入的元素。在一个栈中，唯一可见的元素就是栈顶的元素。">
+<meta name="twitter:image" content="https://ws1.sinaimg.cn/large/005tAODYgy1foogdxkm8yj30wo0ldjsi.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/02/数据结构之旅 - 栈 - Java语言描述/"/>
+
+
+
+
+
+  <title>数据结构之旅(2) - 栈 - Java语言描述 | BUGING</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">BUGING</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">懒得很</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/数据结构之旅 - 栈 - Java语言描述/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="cyvan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/profile_photo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BUGING">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据结构之旅(2) - 栈 - Java语言描述</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-21T23:43:50+08:00">
+                2018-02-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="栈的定义"><a href="#栈的定义" class="headerlink" title="栈的定义"></a>栈的定义</h1><p><u>栈（stack）是一个特殊的表</u>，它限制了插入和删除只能在一个位置上进行，该位置是表的末端，叫作栈的顶（top）。根据操作的特性，栈也可被称为后进先出（Last In First Out，LIFO）表。对栈的基本操作有<code>push(进栈)</code>、<code>pop(出栈)</code>，前者相当于插入，后者则是删除 <strong>最后</strong> 插入的元素。在一个栈中，唯一可见的元素就是栈顶的元素。</p>
+<a id="more"></a>
+<p><img src="https://ws1.sinaimg.cn/large/005tAODYgy1foogdxkm8yj30wo0ldjsi.jpg" alt="stack" title="栈模型"></p>
+<h1 id="栈的实现"><a href="#栈的实现" class="headerlink" title="栈的实现"></a>栈的实现</h1><p>因为栈是一个特殊的表，所以任何实现表的方式都可以用来实现栈。因为栈操作是常数时间的操作，所以除非在非常独特的环境下，栈操作是不可能有明显改进的。在此，我们给出两种常见的实现方式：链式结构和数组。由于实现逻辑比较简单，所以不给出具体代码实现，大家可以自行实现。</p>
+<h2 id="栈的链表实现"><a href="#栈的链表实现" class="headerlink" title="栈的链表实现"></a>栈的链表实现</h2><p>栈的第一种实现方式是使用单链表。通过在表的顶端插入来实现 <code>push</code>，通过删除表顶端元素来实现 <code>pop</code>。<code>top</code> 操作直考察栈顶元素并返回它的值。</p>
+<p><del>其实，修改一下上一讲有关表的链式实现即可完成栈操作：在表末端进行 <code>insert</code> 操作即是实现 <code>push</code> 操作；在表末端进行 <code>remove</code> 操作即是实现 <code>pop</code> 操作；在表末端进行 <code>get</code> 操作即是实现 <code>top</code> 操作。这同时又从反面印证了有关栈的定义。</del></p>
+<p>具体实现大家可以亲自动手试试。</p>
+<h2 id="栈的数组实现"><a href="#栈的数组实现" class="headerlink" title="栈的数组实现"></a>栈的数组实现</h2><p>用数组来实现栈避免了链，而且可能是更加流行的实现方案。用数组来实现栈，要注意数组的容量、要注意栈顶元素的位置。用数组来实现栈，<code>push</code> 操作和 <code>pop</code> 操作都转化为了简单的赋值操作，而 <code>top</code> 操作则更加简单，就是对于数组元素的取值。</p>
+<p>具体实现大家可以亲自动手试试。</p>
+<h1 id="栈的应用"><a href="#栈的应用" class="headerlink" title="栈的应用"></a>栈的应用</h1><ol>
+<li><p>平衡符号</p>
+<p>写代码时，编译器检查程序的语法错误，例如 <code>(</code> 与 <code>)</code> 没有匹配或 <code>{</code>与 <code>}</code> 没有匹配等等。对于这种需求，我们可以用栈来实现。</p>
+<p>假设现在有一组符号 <code>···{ ( } )···</code>，我们逐一将其 <code>push</code> 进栈，当且仅当旧栈顶元素与新栈顶元素匹配时才 <code>pop</code> 这两个元素，也就是说当栈内元素为 <code>&amp; * ^ % (</code> 时，接下来 <code>push())</code> 就会 <code>pop())</code> 和 <code>pop(()</code>，即弹出“栈顶”的两个元素。这样一来，如果所有的符号都是匹配的，<code>push</code> 最后一个符号时，栈会进行 <code>pop</code> 操作，使得整个栈为空！</p>
+</li>
+<li><p>后缀表达式</p>
+<p>假设你现在出去购物，碰巧遇到商场打折：所有的商品均在原价的基础上打88折。在结账清算商品总价时，正确的步骤应该是：计算出商品原总价然后用总价乘0.88即可得到折后总价（或对于每件商品，用其价格乘 0.88之后再相加）。因为几乎所有的计算器都知道乘法的优先级大于加法，所以如果在你输入 <code>10 + 20 + 30 + 40 * 0.88</code> 时，它会输出 <code>95.2</code> 而不是我们想要的 <code>88</code>。如果该计算器使用栈来实现的，那就不会出现这样的情况了，具体原因和运算过程大家可以想一想。</p>
+<p>或者换个情况：只有部分商品才能参与优惠活动。使用科学计算器时我们可以通过加括号的方法得到正确的答案，而一般的简单计算器不包含括号，只支持简单的四则运算！这时候就可以用 <strong>栈</strong> + <strong>逆波兰式（reverse Polish）</strong>来完成相关需求：在进行运算时若遇到一个运算符号，就在该运算符号所用于栈顶弹出的的两个元素上，并将运算结果压入栈中。例如一个后缀式：<code>1 2 + 3 *</code>，运算结果是 <u>9</u>。后缀式可以摈弃一切的优先级。</p>
+</li>
+<li><p>中缀到后缀的转换</p>
+<p>栈不仅可以运算后缀式，也可以把一个标准形式的表达式转化为后缀式，即中缀到后缀的转换。此处篇幅较长，就不仔细介绍了，感兴趣的可以好好利用搜索引擎。</p>
+</li>
+</ol>
+<h1 id="一些小练习（顺序随机）"><a href="#一些小练习（顺序随机）" class="headerlink" title="一些小练习（顺序随机）"></a>一些小练习（顺序随机）</h1><ol>
+<li><a href="https://www.nowcoder.com/practice/d77d11405cc7470d82554cb392585106?tpId=13&amp;tqId=11174&amp;tPage=1&amp;rp=1&amp;ru=/ta/coding-interviews&amp;qru=/ta/coding-interviews/question-ranking" title="nowcoder-stack" target="_blank" rel="noopener">输入两个整数序列，第一个序列表示栈的压入顺序，请判断第二个序列是否为该栈的弹出顺序。</a></li>
+<li><a href="https://www.nowcoder.com/practice/d281619e4b3e4a60a2cc66ea32855bfa?tpId=49&amp;&amp;tqId=29370&amp;rp=1&amp;ru=/activity/oj&amp;qru=/ta/2016test/question-ranking" title="nowcoder-stack" target="_blank" rel="noopener">对于一个链表，请设计一个时间复杂度为O(n),额外空间复杂度为O(1)的算法，判断其是否为回文结构。</a></li>
+<li><a href="https://www.nowcoder.com/practice/227893ccf81d4e8589875922f0d9319e?tpId=49&amp;&amp;tqId=29299&amp;rp=1&amp;ru=/activity/oj&amp;qru=/ta/2016test/question-ranking" title="nowcoder-stack" target="_blank" rel="noopener">写一段代码，判断一个包括’{‘,’[‘,’(‘,’)’,’]’,’}’的表达式是否合法。</a></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据结构/" rel="tag"><i class="fa fa-tag"></i> 数据结构</a>
+          
+            <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+          
+            <a href="/tags/栈/" rel="tag"><i class="fa fa-tag"></i> 栈</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/02/数据结构之旅 - 表 - Java语言描述/" rel="next" title="数据结构之旅(1) - 表 - Java语言描述">
+                <i class="fa fa-chevron-left"></i> 数据结构之旅(1) - 表 - Java语言描述
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/02/数据结构之旅 - 队列 - Java语言描述/" rel="prev" title="数据结构之旅(3) - 队列 - Java语言描述">
+                数据结构之旅(3) - 队列 - Java语言描述 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/profile_photo.jpg"
+                alt="cyvan" />
+            
+              <p class="site-author-name" itemprop="name">cyvan</p>
+              <p class="site-description motion-element" itemprop="description">不想当咸鱼的运营喵不是好程序猿</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/cyvan115" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:854494838@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#栈的定义"><span class="nav-number">1.</span> <span class="nav-text">栈的定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#栈的实现"><span class="nav-number">2.</span> <span class="nav-text">栈的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#栈的链表实现"><span class="nav-number">2.1.</span> <span class="nav-text">栈的链表实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#栈的数组实现"><span class="nav-number">2.2.</span> <span class="nav-text">栈的数组实现</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#栈的应用"><span class="nav-number">3.</span> <span class="nav-text">栈的应用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一些小练习（顺序随机）"><span class="nav-number">4.</span> <span class="nav-text">一些小练习（顺序随机）</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">cyvan</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count"></span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
